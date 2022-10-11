@@ -1,11 +1,10 @@
 /**
-  Expérimentation Mets ta carte!
-  Name: RFID_Locks.ino
-  Purpose: Ouvrir la porte selon la lecture d'une identité numérique presentée via lecteur RFID. 
-
-  @author Julio Cesar Torres dos Santos <julio.cesartorres@mcn.gouv.qc.ca>
-  @version 1.0 15/09/2022
-*/
+ * Expérimentation Mets ta carte!
+ * Name: RFID_Locks.ino
+ * Purpose: Ouvrir la porte selon la lecture d'une identité numérique presentée via lecteur RFID. 
+ * @author Julio Cesar Torres dos Santos <julio.cesartorres@mcn.gouv.qc.ca>
+ * @version 1.0 15/09/2022
+ */
 
 #include <SPI.h>
 #include <MFRC522.h>
