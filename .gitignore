@@ -1,2 +1,5 @@
 libraries/*
 *.adoc
+
+# Include file que define os segredos de configuracao
+config.h
