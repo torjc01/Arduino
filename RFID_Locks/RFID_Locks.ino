@@ -8,6 +8,7 @@
 
 #include <SPI.h>
 #include <MFRC522.h>
+#include "config.h"
 
 // Pins module wifi 
 #define WIFI_RX_PIN   2
@@ -44,6 +45,11 @@ const int TEMPO_ESPERA   = 1000;  // Temps d'attente jusqu'au nouveau cycle.
 int RED  []  = {255, 0, 0}; // Lumière rouge: alertes d'erreur
 int GREEN[]  = {0, 255, 0}; // Lumière verte: porte ouverte, accès franchi
 int BLUE []  = {0, 0, 255}; // Lumière bleue: 
+
+// Constantes du wifi 
+char *ssid = SSID; 
+char *pass = PASS;
+
 
 // Notes musicales
 const int LA4 = 440;
@@ -105,7 +111,7 @@ void loop(){
 
   
   if (content.substring(1) == "04 59 4B 4A DD 64 80") { //changer ici UID de la carte que aura l'accès
-    Serial.println("Accès autorisé");
+    /* Serial.println("Accès autorisé");
     Serial.println();
     rgbled(GREEN);
     tone(BUZZ_PIN, LA4);
@@ -114,23 +120,10 @@ void loop(){
     digitalWrite(RELAY_PIN, LOW);
     rgbled(BLUE);
     noTone(BUZZ_PIN); 
-    mfrc522.PCD_Init();
+    mfrc522.PCD_Init(); */
+    open();
   } else {
-    Serial.println("Accès interdit");
-    Serial.println();
-    rgbled(RED);
-    tone(BUZZ_PIN, 300);
-    delay(300); 
-    noTone(BUZZ_PIN);
-    delay(100); 
-    tone(BUZZ_PIN, 300);
-    delay(300); 
-    noTone(BUZZ_PIN);
-    delay(100); 
-    tone(BUZZ_PIN, 300);
-    delay(TEMPO_ESPERA);
-    rgbled(BLUE);
-    noTone(BUZZ_PIN);
+    forbidden():
   }
 }
 
@@ -141,18 +134,45 @@ void loop(){
   @return void
 */
 void open(){
-  tone(BUZZ_PIN, LA4);
+/*  tone(BUZZ_PIN, LA4);
   rgbled(GREEN);
+  digitalWrite(RELAY_PIN, HIGH); */
+
+  Serial.println("Accès autorisé");
+  Serial.println();
+  rgbled(GREEN);
+  tone(BUZZ_PIN, LA4);
   digitalWrite(RELAY_PIN, HIGH);
+  delay(TEMPO_ABERTURA);
+  digitalWrite(RELAY_PIN, LOW);
+  rgbled(BLUE);
+  noTone(BUZZ_PIN); 
+  mfrc522.PCD_Init();
 }
 
 /**
  * 
  */
-void close(){
-  noTone(BUZZ_PIN);
+void forbidden(){
+  /*noTone(BUZZ_PIN);
   rgbled(BLUE); 
-  digitalWrite(RELAY_PIN, LOW);
+  digitalWrite(RELAY_PIN, LOW); */
+
+  Serial.println("Accès interdit");
+  Serial.println();
+  rgbled(RED);
+  tone(BUZZ_PIN, 300);
+  delay(300); 
+  noTone(BUZZ_PIN);
+  delay(100); 
+  tone(BUZZ_PIN, 300);
+  delay(300); 
+  noTone(BUZZ_PIN);
+  delay(100); 
+  tone(BUZZ_PIN, 300);
+  delay(TEMPO_ESPERA);
+  rgbled(BLUE);
+  noTone(BUZZ_PIN);
 }
 
 /**
